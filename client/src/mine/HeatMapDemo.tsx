@@ -1,7 +1,7 @@
 import HeatMap from '@uiw/react-heat-map';
 import { useTheme } from '@/mine/theme-provider';
 import Tooltip from '@uiw/react-tooltip';
-import { TableCaption, Table } from "@/components/ui/table";
+import { TableCaption, Table } from '@/components/ui/table';
 
 interface DemoProps {
   flightData: { date: string; count: number }[];
@@ -23,14 +23,16 @@ const Demo = ({ flightData }: DemoProps) => {
           rectSize={20}
           rectProps={{ rx: 7 }}
           style={{ color: textColor }}
-          rectRender={(props, data) => (
-            <Tooltip
-              content={`Flight price: $${data.count || 0}`}
-              placement="top"
-            >
-              <rect {...props} />
-            </Tooltip>
-          )}
+          rectRender={(props, data) => {
+            return (
+              <Tooltip
+                content={`Flight price: $${data.count || 0}`}
+                placement="top"
+              >
+                <rect {...props} />
+              </Tooltip>
+            );
+          }}
         />
         <TableCaption>Cost of direct flight</TableCaption>
       </Table>

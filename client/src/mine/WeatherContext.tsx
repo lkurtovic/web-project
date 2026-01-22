@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode } from 'react';
 
 // Tipovi
 interface WeatherItem {
@@ -27,10 +27,21 @@ const WeatherContext = createContext<WeatherContextType | undefined>(undefined);
 export function WeatherProvider({ children }: { children: ReactNode }) {
   const [weatherData, setWeatherData] = useState<WeatherItem[]>([]);
   const [costData, setCostData] = useState<CostData | null>(null);
-  const [flightData, setFlightData] = useState<{ date: string; count: number }[]>([]);
+  const [flightData, setFlightData] = useState<
+    { date: string; count: number }[]
+  >([]);
 
   return (
-    <WeatherContext.Provider value={{ weatherData, setWeatherData, costData, setCostData, flightData, setFlightData }}>
+    <WeatherContext.Provider
+      value={{
+        weatherData,
+        setWeatherData,
+        costData,
+        setCostData,
+        flightData,
+        setFlightData,
+      }}
+    >
       {children}
     </WeatherContext.Provider>
   );
@@ -39,6 +50,7 @@ export function WeatherProvider({ children }: { children: ReactNode }) {
 // Custom hook za lakši pristup
 export function useWeather() {
   const context = useContext(WeatherContext);
-  if (!context) throw new Error("useWeather must be used within a WeatherProvider");
+  if (!context)
+    throw new Error('useWeather must be used within a WeatherProvider');
   return context;
 }

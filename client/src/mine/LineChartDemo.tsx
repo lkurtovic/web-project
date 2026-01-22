@@ -1,11 +1,18 @@
-import { Area, ComposedChart, CartesianGrid, XAxis, YAxis, Bar } from "recharts"
+import {
+  Area,
+  ComposedChart,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Bar,
+} from 'recharts';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from '@/components/ui/card';
 import {
   ChartContainer,
   ChartLegend,
@@ -13,21 +20,19 @@ import {
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
-} from "@/components/ui/chart"
-
+} from '@/components/ui/chart';
 
 interface ChartAreaInteractiveProps {
-  data: { index: number; temperature: number; precipitation: number }[]
+  data: { index: number; temperature: number; precipitation: number }[];
 }
 
 export function ChartAreaInteractive({ data }: ChartAreaInteractiveProps) {
-
-  const filteredData = data // možemo dodati filter po periodu kasnije
+  const filteredData = data; // možemo dodati filter po periodu kasnije
 
   const chartConfig = {
-    temperature: { label: "Temperature (°C)", color: "#FF4D4D" }, // crvena
-    precipitation: { label: "Precipitation (mm)", color: "#4D79FF" }, // plava
-  } satisfies ChartConfig
+    temperature: { label: 'Temperature (°C)', color: '#FF4D4D' }, // crvena
+    precipitation: { label: 'Precipitation (mm)', color: '#4D79FF' }, // plava
+  } satisfies ChartConfig;
 
   return (
     <Card className="pt-0">
@@ -41,7 +46,10 @@ export function ChartAreaInteractive({ data }: ChartAreaInteractiveProps) {
       </CardHeader>
 
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
-        <ChartContainer config={chartConfig} className="aspect-auto h-[250px] w-full">
+        <ChartContainer
+          config={chartConfig}
+          className="aspect-auto h-[250px] w-full"
+        >
           <ComposedChart data={filteredData}>
             <defs>
               <linearGradient id="fillTemperature" x1="0" y1="0" x2="0" y2="1">
@@ -103,5 +111,5 @@ export function ChartAreaInteractive({ data }: ChartAreaInteractiveProps) {
         </ChartContainer>
       </CardContent>
     </Card>
-  )
+  );
 }
