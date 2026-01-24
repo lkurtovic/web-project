@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/firebase';
 import { useNavigate, Link } from 'react-router-dom';
+import { sendPasswordResetEmail } from 'firebase/auth';
 import {
   setPersistence,
   browserLocalPersistence,
@@ -28,6 +29,22 @@ export function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  const handleForgotPassword = async () => {
+    setError('');
+
+    if (!email) {
+      setError('Please enter your email to reset password.');
+      return;
+    }
+
+    try {
+      await sendPasswordResetEmail(auth, email);
+      setError('Password reset email sent. Check your inbox.');
+    } catch (err: any) {
+      setError(err.message);
+    }
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -102,7 +119,17 @@ export function Login() {
               </div>
 
               <div>
-                <Label className="mb-2">Password</Label>
+                <div className="flex justify-between mb-2">
+                  <Label className="">Password</Label>
+                  <button
+                    type="button"
+                    onClick={handleForgotPassword}
+                    className="text-sm text-blue-600 hover:underline cursor-pointer"
+                  >
+                    Forgot password?
+                  </button>
+                </div>
+
                 <Input
                   type="password"
                   value={password}
@@ -117,6 +144,7 @@ export function Login() {
             <CardContent className="my-4">
               <div className="flex items-center gap-2">
                 <Checkbox
+                  className="cursor-pointer"
                   checked={rememberMe}
                   onCheckedChange={(checked: boolean) =>
                     setRememberMe(!!checked)
@@ -127,12 +155,12 @@ export function Login() {
             </CardContent>
 
             <CardFooter className="flex-col gap-2">
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full cursor-pointer">
                 Login
               </Button>
               <Button
                 variant="outline"
-                className="w-full"
+                className="w-full cursor-pointer"
                 onClick={handleGoogleSignIn} // dodano
               >
                 Login with Google
