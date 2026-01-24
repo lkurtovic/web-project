@@ -19,7 +19,7 @@ export default function Page() {
     <SidebarProvider>
       <AppSidebar className="" />
       <SidebarInset>
-        <header className="bg-background sticky top-0 flex h-auto shrink-0 items-center gap-2 border-b px-4">
+        <header className="bg-background sticky top-0 flex h-auto py-3 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger className="-ml-1" />
           <Separator orientation="vertical" className="mr-2 h-4" />
           <Breadcrumb>

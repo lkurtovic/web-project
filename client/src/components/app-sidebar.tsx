@@ -12,6 +12,8 @@ import {
   PieChart,
   Settings2,
   SquareTerminal,
+  Pizza,
+  Icon,
 } from 'lucide-react';
 
 import { NavMain } from '@/components/nav-main';
@@ -52,13 +54,13 @@ const data = {
   ],
   navMain: [
     {
-      title: 'Playground',
+      title: 'Settings',
       url: '#',
       icon: SquareTerminal,
       isActive: true,
       items: [
         {
-          title: 'History',
+          title: 'Food and water table',
           url: '#',
         },
         {
