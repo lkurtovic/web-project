@@ -123,9 +123,11 @@ export function Payment() {
                 </FieldSet>
                 <FieldSeparator />
                 <Field orientation="horizontal">
-                  <Button type="submit">Submit</Button>
-                  <Button variant="outline" type="button">
-                    Cancel
+                  <Button asChild type="submit">
+                    <Link to="/home">Subscribe</Link>
+                  </Button>
+                  <Button variant="outline" asChild type="button">
+                    <Link to="/signup">Cancel</Link>
                   </Button>
                 </Field>
               </FieldGroup>
