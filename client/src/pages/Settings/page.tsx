@@ -1,3 +1,4 @@
+import { Outlet } from 'react-router-dom';
 import { AppSidebar } from '@/components/app-sidebar';
 import {
   Breadcrumb,
@@ -17,9 +18,9 @@ import {
 export default function Page() {
   return (
     <SidebarProvider>
-      <AppSidebar className="" />
-      <SidebarInset>
-        <header className="bg-background sticky top-0 flex h-auto py-3 shrink-0 items-center gap-2 border-b px-4">
+      <AppSidebar />
+      <SidebarInset className="flex flex-col h-155">
+        <header className="sticky top-0 z-10 bg-background flex h-auto py-3 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger className="-ml-1" />
           <Separator orientation="vertical" className="mr-2 h-4" />
           <Breadcrumb>
@@ -36,13 +37,9 @@ export default function Page() {
             </BreadcrumbList>
           </Breadcrumb>
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4">
-          {Array.from({ length: 24 }).map((_, index) => (
-            <div
-              key={index}
-              className="bg-muted/50 aspect-video h-12 w-full rounded-lg"
-            />
-          ))}
+
+        <div className="flex-1 overflow-y-auto p-4 min-h-0">
+          <Outlet />
         </div>
       </SidebarInset>
     </SidebarProvider>

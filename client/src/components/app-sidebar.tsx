@@ -16,6 +16,8 @@ import {
   Icon,
 } from 'lucide-react';
 
+import { Link } from 'react-router-dom';
+
 import { NavMain } from '@/components/nav-main';
 import { NavProjects } from '@/components/nav-projects';
 import { NavUser } from '@/components/nav-user';
@@ -61,11 +63,11 @@ const data = {
       items: [
         {
           title: 'Food and water table',
-          url: '#',
+          url: '/settings/food-water',
         },
         {
-          title: 'Starred',
-          url: '#',
+          title: 'Interests',
+          url: '/settings/interests',
         },
         {
           title: 'Settings',

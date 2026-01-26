@@ -4,6 +4,11 @@ import { onAuthStateChanged } from 'firebase/auth';
 import type { User } from 'firebase/auth'; // <--- type-only import
 import { auth } from '@/firebase';
 
+import Page from '@/pages/Settings/page';
+import FoodWaterTable from '@/pages/Settings/FoodWaterTable';
+import SettingsHome from './pages/Settings/SettingsHome';
+import Interests from './pages/Settings/Interests';
+
 import Home from './pages/Home/Home';
 import SettingsDemo from './pages/Settings/SettingsDemo';
 import { Login } from './pages/Login/Login';
@@ -66,6 +71,15 @@ function App() {
 
         {/* Fallback za nepostojeće rute */}
         <Route path="*" element={<Navigate to="/" replace />} />
+
+        <Route
+          path="/settings"
+          element={user ? <Page /> : <Navigate to="/login" replace />}
+        >
+          <Route index element={<SettingsHome />} />
+          <Route path="food-water" element={<FoodWaterTable />} />
+          <Route path="interests" element={<Interests />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
