@@ -109,9 +109,14 @@ export function Login() {
           <form onSubmit={handleLogin}>
             <CardContent className="flex flex-col gap-6">
               <div>
-                <Label className="mb-2">Email</Label>
+                <Label className="mb-2" htmlFor="email">
+                  Email
+                </Label>
                 <Input
+                  id="email"
+                  name="email"
                   type="email"
+                  autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -120,7 +125,9 @@ export function Login() {
 
               <div>
                 <div className="flex justify-between mb-2">
-                  <Label className="">Password</Label>
+                  <Label className="" htmlFor="password">
+                    Password
+                  </Label>
                   <button
                     type="button"
                     onClick={handleForgotPassword}
@@ -131,7 +138,10 @@ export function Login() {
                 </div>
 
                 <Input
+                  id="password"
+                  name="password"
                   type="password"
+                  autoComplete="current-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
@@ -144,13 +154,15 @@ export function Login() {
             <CardContent className="my-4">
               <div className="flex items-center gap-2">
                 <Checkbox
+                  id="rememberMe"
+                  name="rememberMe"
                   className="cursor-pointer"
                   checked={rememberMe}
                   onCheckedChange={(checked: boolean) =>
                     setRememberMe(!!checked)
                   }
                 />
-                <Label>Remember me</Label>
+                <Label htmlFor="rememberMe">Remember me</Label>
               </div>
             </CardContent>
 
@@ -165,9 +177,9 @@ export function Login() {
               >
                 Login with Google
               </Button>
-              <Label className="mt-5">
+              <p className="flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 mt-5">
                 Don't have an account? <Link to="/signup">Sign Up</Link>
-              </Label>
+              </p>
             </CardFooter>
           </form>
         </Card>

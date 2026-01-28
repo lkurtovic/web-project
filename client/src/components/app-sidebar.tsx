@@ -14,12 +14,15 @@ import {
   SquareTerminal,
   Pizza,
   Icon,
+  UserPen,
+  SlidersHorizontal,
 } from 'lucide-react';
 
 import { Link } from 'react-router-dom';
 
 import { NavMain } from '@/components/nav-main';
 import { NavProjects } from '@/components/nav-projects';
+import { NavProjects2 } from '@/components/nav-projects2';
 import { NavUser } from '@/components/nav-user';
 import { TeamSwitcher } from '@/components/team-switcher';
 import {
@@ -37,28 +40,18 @@ const data = {
     email: 'm@example.com',
     avatar: '/avatars/shadcn.jpg',
   },
-  teams: [
+  projects2: [
     {
-      name: 'Acme Inc',
-      logo: GalleryVerticalEnd,
-      plan: 'Enterprise',
-    },
-    {
-      name: 'Acme Corp.',
-      logo: AudioWaveform,
-      plan: 'Startup',
-    },
-    {
-      name: 'Evil Corp.',
-      logo: Command,
-      plan: 'Free',
+      name: 'Profile',
+      url: '/settings/general',
+      icon: UserPen,
     },
   ],
   navMain: [
     {
       title: 'Settings',
       url: '#',
-      icon: SquareTerminal,
+      icon: SlidersHorizontal,
       isActive: true,
       items: [
         {
@@ -68,10 +61,6 @@ const data = {
         {
           title: 'Interests',
           url: '/settings/interests',
-        },
-        {
-          title: 'Settings',
-          url: '#',
         },
       ],
     },
@@ -117,29 +106,6 @@ const data = {
         },
       ],
     },
-    {
-      title: 'Settings',
-      url: '#',
-      icon: Settings2,
-      items: [
-        {
-          title: 'General',
-          url: '#',
-        },
-        {
-          title: 'Team',
-          url: '#',
-        },
-        {
-          title: 'Billing',
-          url: '#',
-        },
-        {
-          title: 'Limits',
-          url: '#',
-        },
-      ],
-    },
   ],
   projects: [
     {
@@ -164,9 +130,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props} className="sticky top-0 h-155">
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <TeamSwitcher />
       </SidebarHeader>
       <SidebarContent>
+        <NavProjects2 projects={data.projects2} />
+
         <NavMain items={data.navMain} />
         <NavProjects projects={data.projects} />
       </SidebarContent>

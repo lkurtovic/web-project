@@ -28,7 +28,11 @@ export default function Interests() {
     <div className="px-10 py-5">
       <div className="mb-10">Choose your interests</div>
 
-      <div className="flex gap-5 flex-wrap">
+      <div className="mb-10">
+        These interests will be used for planing days of your travel
+      </div>
+
+      <div className="flex gap-5 flex-wrap flex-row flex-1 min-h-0 rounded-lg bg-muted p-6">
         {INTERESTS.map(({ key, icon: Icon, label }) => (
           <Tooltip key={key}>
             <TooltipTrigger asChild>

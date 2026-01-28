@@ -5,12 +5,11 @@ import type { User } from 'firebase/auth'; // <--- type-only import
 import { auth } from '@/firebase';
 
 import Page from '@/pages/Settings/page';
-import FoodWaterTable from '@/pages/Settings/FoodWaterTable';
-import SettingsHome from './pages/Settings/SettingsHome';
-import Interests from './pages/Settings/Interests';
+import FoodWaterTable from '@/pages/Settings/FoodWater/FoodWaterTable';
+import General from '@/pages/Settings/General/General';
+import Interests from './pages/Settings/Interests/Interests';
 
 import Home from './pages/Home/Home';
-import SettingsDemo from './pages/Settings/SettingsDemo';
 import { Login } from './pages/Login/Login';
 import { Signup } from './pages/Signup/Signup';
 import { Landing } from './pages/Landing/Landing';
@@ -62,7 +61,7 @@ function App() {
         />
         <Route
           path="/settings"
-          element={user ? <SettingsDemo /> : <Navigate to="/login" replace />}
+          element={user ? <Page /> : <Navigate to="/login" replace />}
         />
         <Route
           path="/payment"
@@ -76,9 +75,10 @@ function App() {
           path="/settings"
           element={user ? <Page /> : <Navigate to="/login" replace />}
         >
-          <Route index element={<SettingsHome />} />
+          <Route index element={<General />} />
           <Route path="food-water" element={<FoodWaterTable />} />
           <Route path="interests" element={<Interests />} />
+          <Route path="general" element={<General />} />
         </Route>
       </Routes>
     </BrowserRouter>

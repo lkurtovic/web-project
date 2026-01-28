@@ -83,9 +83,14 @@ export function Signup() {
           <form onSubmit={handleSignup}>
             <CardContent className="flex flex-col gap-6">
               <div>
-                <Label className="mb-2">Email</Label>
+                <Label className="mb-2" htmlFor="email">
+                  Email
+                </Label>
                 <Input
+                  id="email"
+                  name="email"
                   type="email"
+                  autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -93,9 +98,14 @@ export function Signup() {
               </div>
 
               <div>
-                <Label className="mb-2">Password</Label>
+                <Label className="mb-2" htmlFor="password">
+                  Password
+                </Label>
                 <Input
+                  id="password"
+                  name="password"
                   type="password"
+                  autoComplete="new-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
@@ -116,9 +126,9 @@ export function Signup() {
               >
                 Sign Up with Google
               </Button>
-              <Label className="mt-5">
+              <p className="flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 mt-5">
                 Already have an account? <Link to="/login">Login</Link>
-              </Label>
+              </p>
             </CardFooter>
           </form>
         </Card>
