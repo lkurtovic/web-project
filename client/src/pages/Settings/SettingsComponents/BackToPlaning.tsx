@@ -1,17 +1,7 @@
 'use client';
-
-import * as React from 'react';
-import { ChevronsUpDown, Plus, ArrowLeftFromLine } from 'lucide-react';
+import { ArrowLeftFromLine } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+
 import {
   SidebarMenu,
   SidebarMenuButton,

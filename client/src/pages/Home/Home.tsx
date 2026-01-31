@@ -8,17 +8,6 @@ import { TableDemo } from '@/mine/TableDemo';
 import { AvatarDemo } from '@/mine/AvatarDemo';
 import { useNavigate } from 'react-router-dom';
 import Demo from '@/mine/HeatMapDemo';
-import { signOut } from 'firebase/auth';
-import { auth } from '@/firebase';
-
-const handleLogout = async () => {
-  try {
-    await signOut(auth);
-    console.log('User logged out');
-  } catch (error) {
-    console.error(error);
-  }
-};
 
 interface WeatherItem {
   index: number;
@@ -71,7 +60,6 @@ function Home() {
           <p className="font-extrabold">T-buddy</p>
         </div>
         <div className="flex justify-end gap-3">
-          <button onClick={handleLogout}>Logout</button>
           <ModeToggle />
           <div onClick={() => navigate('/settings')} className="cursor-pointer">
             <AvatarDemo />

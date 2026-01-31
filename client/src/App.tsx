@@ -14,6 +14,8 @@ import { Login } from './pages/Login/Login';
 import { Signup } from './pages/Signup/Signup';
 import { Landing } from './pages/Landing/Landing';
 import { Payment } from './pages/Payment/Payment';
+import Subscription from './pages/Settings/Subscription/Subscription';
+import Personalization from './pages/Settings/Personalization/Personalization';
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -79,6 +81,8 @@ function App() {
           <Route path="food-water" element={<FoodWaterTable />} />
           <Route path="interests" element={<Interests />} />
           <Route path="general" element={<General />} />
+          <Route path="subscription" element={<Subscription />} />
+          <Route path="personalization" element={<Personalization />} />
         </Route>
       </Routes>
     </BrowserRouter>
