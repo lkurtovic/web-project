@@ -1,12 +1,16 @@
 import { useState } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  updateProfile,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from 'firebase/auth';
 import { auth } from '@/firebase';
 import { useNavigate, Link } from 'react-router-dom';
-import { sendEmailVerification } from 'firebase/auth';
 import { Button } from '@/components/ui/button';
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
@@ -15,7 +19,6 @@ import {
 } from '@/components/ui/card';
 import Input from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 const handleGoogleSignIn = async () => {
   const provider = new GoogleAuthProvider();
@@ -29,6 +32,7 @@ const handleGoogleSignIn = async () => {
 };
 
 export function Signup() {
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -47,13 +51,16 @@ export function Signup() {
       );
       const user = userCredential.user;
 
-      // 2️⃣ Pošalji email za verifikaciju
+      // 2️⃣ Postavi username
+      await updateProfile(user, { displayName: username });
+
+      // 3️⃣ Pošalji email za verifikaciju
       await sendEmailVerification(user);
 
-      // 3️⃣ Odmah logout da korisnik ne bude automatski logiran
+      // 4️⃣ Odmah logout da korisnik ne bude automatski logiran
       await auth.signOut();
 
-      // 4️⃣ Obavijesti korisnika i redirect na login
+      // 5️⃣ Obavijesti korisnika i redirect na login
       alert(
         'Verification email sent! Please check your email before logging in.',
       );
@@ -82,6 +89,20 @@ export function Signup() {
 
           <form onSubmit={handleSignup}>
             <CardContent className="flex flex-col gap-6">
+              <div>
+                <Label className="mb-2" htmlFor="username">
+                  Username
+                </Label>
+                <Input
+                  id="username"
+                  name="username"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
+              </div>
+
               <div>
                 <Label className="mb-2" htmlFor="email">
                   Email
@@ -126,7 +147,7 @@ export function Signup() {
               >
                 Sign Up with Google
               </Button>
-              <p className="flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 mt-5">
+              <p className="flex items-center gap-2 text-sm leading-none font-medium mt-5">
                 Already have an account? <Link to="/login">Login</Link>
               </p>
             </CardFooter>

@@ -16,6 +16,7 @@ import { Landing } from './pages/Landing/Landing';
 import { Payment } from './pages/Payment/Payment';
 import Subscription from './pages/Settings/Subscription/Subscription';
 import Personalization from './pages/Settings/Personalization/Personalization';
+import Flights from './pages/Settings/Flights/Flights';
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -83,6 +84,7 @@ function App() {
           <Route path="general" element={<General />} />
           <Route path="subscription" element={<Subscription />} />
           <Route path="personalization" element={<Personalization />} />
+          <Route path="flights" element={<Flights />} />
         </Route>
       </Routes>
     </BrowserRouter>

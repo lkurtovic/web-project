@@ -20,13 +20,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import {
-  IconGripVertical,
-  IconDotsVertical,
-  IconCircleCheckFilled,
-  IconLoader,
-  IconPlus,
-} from '@tabler/icons-react';
+import { IconGripVertical } from '@tabler/icons-react';
 import {
   flexRender,
   getCoreRowModel,
@@ -40,27 +34,11 @@ import {
   type SortingState,
   type VisibilityState,
 } from '@tanstack/react-table';
-
-import { Badge } from '@/components/ui/badge';
+import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuCheckboxItem,
-} from '@/components/ui/dropdown-menu';
+
 import Input from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import {
   Table,
   TableBody,
@@ -69,18 +47,14 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Separator } from '@/components/ui/separator';
 
-import { z } from 'zod';
-
+// Schema for Food & Drink
 export const schema = z.object({
   id: z.number(),
-  header: z.string(),
-  type: z.string(),
-  status: z.string(),
-  target: z.string(),
-  limit: z.string(),
-  reviewer: z.string(),
+  name: z.string(),
+  section: z.enum(['Food', 'Drink', 'Food & Drink']),
+  amount: z.number().nullable(),
+  unit: z.string(),
 });
 
 // Drag handle component
@@ -93,15 +67,15 @@ function DragHandle({ id }: { id: number }) {
       {...listeners}
       variant="ghost"
       size="icon"
-      className="text-muted-foreground size-7 hover:bg-transparent"
+      className="text-muted-foreground hover:bg-transparent"
     >
-      <IconGripVertical className="text-muted-foreground size-3" />
+      <IconGripVertical />
       <span className="sr-only">Drag to reorder</span>
     </Button>
   );
 }
 
-// Column definitions
+// Column definitions for Food & Drink
 const columns: ColumnDef<z.infer<typeof schema>>[] = [
   {
     id: 'drag',
@@ -135,72 +109,34 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'header',
-    header: 'Header',
-    cell: ({ row }) => row.original.header,
-    enableHiding: false,
+    accessorKey: 'name',
+    header: 'Name',
+    cell: ({ row }) => row.original.name,
   },
   {
-    accessorKey: 'type',
-    header: 'Section Type',
+    accessorKey: 'section',
+    header: 'Section',
+    cell: ({ row }) => row.original.section,
+  },
+  {
+    accessorKey: 'amount',
+    header: 'Amount',
     cell: ({ row }) => (
-      <Badge variant="outline" className="text-muted-foreground px-1.5">
-        {row.original.type}
-      </Badge>
+      <div className="flex justify-center">
+        <Input
+          type="text" // koristi text umjesto number da nema strelica
+          inputMode="numeric" // mobilni uređaji prikazuju brojčanu tipkovnicu
+          pattern="[0-9]*" // opcionalno, samo brojevi
+          defaultValue={row.original.amount ?? ''}
+          className="w-16 text-center" // uži i centriran
+        />
+      </div>
     ),
   },
   {
-    accessorKey: 'status',
-    header: 'Status',
-    cell: ({ row }) => (
-      <Badge variant="outline" className="text-muted-foreground px-1.5">
-        {row.original.status === 'Done' ? (
-          <IconCircleCheckFilled className="fill-green-500 dark:fill-green-400" />
-        ) : (
-          <IconLoader />
-        )}
-        {row.original.status}
-      </Badge>
-    ),
-  },
-  {
-    accessorKey: 'target',
-    header: () => <div className="text-right">Target</div>,
-    cell: ({ row }) => (
-      <Input defaultValue={row.original.target} className="w-16 text-right" />
-    ),
-  },
-  {
-    accessorKey: 'limit',
-    header: () => <div className="text-right">Limit</div>,
-    cell: ({ row }) => (
-      <Input defaultValue={row.original.limit} className="w-16 text-right" />
-    ),
-  },
-  {
-    accessorKey: 'reviewer',
-    header: 'Reviewer',
-    cell: ({ row }) => row.original.reviewer,
-  },
-  {
-    id: 'actions',
-    cell: () => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon">
-            <IconDotsVertical />
-            <span className="sr-only">Open menu</span>
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-32">
-          <DropdownMenuItem>Edit</DropdownMenuItem>
-          <DropdownMenuItem>Make a copy</DropdownMenuItem>
-          <DropdownMenuItem>Favorite</DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ),
+    accessorKey: 'unit',
+    header: 'Unit',
+    cell: ({ row }) => row.original.unit,
   },
 ];
 
@@ -212,9 +148,8 @@ function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
 
   return (
     <TableRow
-      data-state={row.getIsSelected() && 'selected'}
-      data-dragging={isDragging}
       ref={setNodeRef}
+      data-dragging={isDragging}
       className="relative z-0 data-[dragging=true]:z-10 data-[dragging=true]:opacity-80"
       style={{ transform: CSS.Transform.toString(transform), transition }}
     >

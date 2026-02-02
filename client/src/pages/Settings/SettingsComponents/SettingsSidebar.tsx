@@ -59,12 +59,16 @@ const data = {
       isActive: true,
       items: [
         {
-          title: 'Food and water table',
+          title: 'Food&Water',
           url: '/settings/food-water',
         },
         {
           title: 'Interests',
           url: '/settings/interests',
+        },
+        {
+          title: 'Flights',
+          url: '/settings/flights',
         },
       ],
     },
@@ -78,11 +82,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <TeamSwitcher />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain2} />
-        <NavMain items={data.navMain} />
+        <NavMain label="General" items={data.navMain2} />
+        <NavMain label="Components" items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
