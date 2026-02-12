@@ -11,7 +11,6 @@ import {
 import { Button } from '@/components/ui/button';
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
@@ -46,6 +45,12 @@ export function Login() {
     }
   };
 
+  const loadUserSettings = async (uid: string) => {
+    const res = await fetch(`http://localhost:3001/api/users/${uid}`);
+    if (!res.ok) throw new Error('Failed to load user settings');
+    return res.json();
+  };
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -70,6 +75,19 @@ export function Login() {
         return;
       }
 
+      // 🔥 POVUCI USER SETTINGS
+      const settings = await loadUserSettings(user.uid);
+
+      // 🔥 SPREMI U LOCAL STORAGE
+      localStorage.setItem('user_settings', JSON.stringify(settings));
+
+      localStorage.setItem(
+        'flight_range',
+        JSON.stringify([
+          settings.search_start,
+          settings.search_start + settings.search_duration,
+        ]),
+      );
       navigate('/home'); // email verified → login uspješan
     } catch (err: any) {
       setError(err.message);
@@ -81,7 +99,16 @@ export function Login() {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
+      const settings = await loadUserSettings(user.uid);
+      localStorage.setItem('user_settings', JSON.stringify(settings));
       console.log('Google user:', user);
+      localStorage.setItem(
+        'flight_range',
+        JSON.stringify([
+          settings.search_start,
+          settings.search_start + settings.search_duration,
+        ]),
+      );
       navigate('/home'); // preusmjeri na home nakon Google login-a
     } catch (err: any) {
       console.error('Google sign-in error:', err.message);

@@ -28,11 +28,36 @@ interface ChartAreaInteractiveProps {
 
 export function ChartAreaInteractive({ data }: ChartAreaInteractiveProps) {
   const filteredData = data; // možemo dodati filter po periodu kasnije
+  const months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+
+  const tickIndexes = filteredData
+    .map((_, i) => i)
+    .filter((_, i, arr) => i % Math.ceil(arr.length / 12) === 0)
+    .map((tick, idx, arr) => {
+      if (idx === 0) return tick + 1; // pomakni January malo udesno
+      if (idx === arr.length - 1) return tick - 1; // pomakni December malo ulijevo
+      return tick;
+    });
 
   const chartConfig = {
     temperature: { label: 'Temperature (°C)', color: '#FF4D4D' }, // crvena
     precipitation: { label: 'Precipitation (mm)', color: '#4D79FF' }, // plava
   } satisfies ChartConfig;
+
+  let monthCounter = 0; // ovo će pratiti koji mjesec slijedi
 
   return (
     <Card className="pt-0">
@@ -58,12 +83,14 @@ export function ChartAreaInteractive({ data }: ChartAreaInteractiveProps) {
               </linearGradient>
             </defs>
             <CartesianGrid vertical={false} />
+
             <XAxis
               dataKey="index"
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={(value) => `Period ${value + 1}`}
+              ticks={tickIndexes}
+              tickFormatter={(value, index) => months[index % 12]}
             />
             {/* Glavna Y os za temperaturu */}
             <YAxis
@@ -86,11 +113,15 @@ export function ChartAreaInteractive({ data }: ChartAreaInteractiveProps) {
               cursor={false}
               content={
                 <ChartTooltipContent
-                  labelFormatter={(value) => `Period ${value + 1}`}
+                  labelFormatter={(label: number) => {
+                    // label je index iz data
+                    return months[label % 12]; // uzima mjesec iz months prema indexu
+                  }}
                   indicator="dot"
                 />
               }
             />
+
             {/* Area za temperaturu (crvena) */}
             <Area
               yAxisId="left"

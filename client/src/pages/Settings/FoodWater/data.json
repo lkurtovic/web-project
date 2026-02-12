@@ -2,176 +2,201 @@
   {
     "id": 1,
     "name": "Meal at an Inexpensive Restaurant",
+    "key": "mealInexpensive",
     "section": "Food",
-    "amount": 20.0,
+    "amount": 1,
     "unit": "meal"
   },
   {
     "id": 2,
-    "name": "Meal for Two at a Mid-Range Restaurant (Three Courses, Without Drinks)",
+    "name": "Meal for Two at a Mid-Range Restaurant",
+    "key": "mealMidRange",
     "section": "Food",
-    "amount": null,
-    "unit": "meal for two"
+    "amount": 1,
+    "unit": "3 courses"
   },
   {
     "id": 3,
-    "name": "Combo Meal at McDonald's (or Equivalent Fast-Food Meal)",
-    "section": "Food & Drink",
-    "amount": 14.0,
+    "name": "Combo Meal at McDonald's",
+    "key": "mcDonaldsMeal",
+    "section": "Food",
+    "amount": 1,
     "unit": "meal"
   },
   {
     "id": 4,
     "name": "Domestic Draft Beer",
+    "key": "domesticBeer",
     "section": "Drink",
-    "amount": null,
+    "amount": 1,
     "unit": "1 pint"
   },
   {
     "id": 5,
     "name": "Imported Beer",
+    "key": "importedBeer",
     "section": "Drink",
-    "amount": null,
+    "amount": 1,
     "unit": "12 oz bottle"
   },
   {
     "id": 6,
     "name": "Cappuccino",
+    "key": "cappuccino",
     "section": "Drink",
-    "amount": null,
-    "unit": "regular size"
+    "amount": 1,
+    "unit": "regular"
   },
   {
     "id": 7,
     "name": "Soft Drink (Coca-Cola or Pepsi)",
+    "key": "softDrink",
     "section": "Drink",
-    "amount": 3.0,
+    "amount": 1,
     "unit": "12 oz bottle"
   },
   {
     "id": 8,
     "name": "Bottled Water",
+    "key": "bottledWater",
     "section": "Drink",
-    "amount": 2.0,
+    "amount": 1,
     "unit": "12 oz bottle"
   },
   {
     "id": 9,
     "name": "Milk",
+    "key": "milk",
     "section": "Drink",
-    "amount": 1.06,
+    "amount": 1,
     "unit": "1 liter"
   },
   {
     "id": 10,
     "name": "Fresh White Bread",
+    "key": "freshWhiteBread",
     "section": "Food",
-    "amount": 3.5,
+    "amount": 1,
     "unit": "1 lb loaf"
   },
   {
     "id": 11,
     "name": "White Rice",
+    "key": "whiteRice",
     "section": "Food",
-    "amount": null,
+    "amount": 1,
     "unit": "1 lb"
   },
   {
     "id": 12,
     "name": "Eggs",
+    "key": "eggs",
     "section": "Food",
-    "amount": 6.5,
+    "amount": 1,
     "unit": "12 large"
   },
   {
     "id": 13,
     "name": "Local Cheese",
+    "key": "localCheese",
     "section": "Food",
-    "amount": 8.0,
+    "amount": 1,
     "unit": "1 lb"
   },
   {
     "id": 14,
     "name": "Chicken Fillets",
+    "key": "chickenFillets",
     "section": "Food",
-    "amount": null,
+    "amount": 1,
     "unit": "1 lb"
   },
   {
     "id": 15,
-    "name": "Beef Round or Equivalent Red Meat",
+    "name": "Beef Round or Red Meat",
+    "key": "beefRound",
     "section": "Food",
-    "amount": null,
+    "amount": 1,
     "unit": "1 lb"
   },
   {
     "id": 16,
     "name": "Apples",
+    "key": "apples",
     "section": "Food",
-    "amount": null,
+    "amount": 1,
     "unit": "1 lb"
   },
   {
     "id": 17,
     "name": "Bananas",
+    "key": "bananas",
     "section": "Food",
-    "amount": null,
+    "amount": 1,
     "unit": "1 lb"
   },
   {
     "id": 18,
     "name": "Oranges",
+    "key": "oranges",
     "section": "Food",
-    "amount": null,
+    "amount": 1,
     "unit": "1 lb"
   },
   {
     "id": 19,
     "name": "Tomatoes",
+    "key": "tomatoes",
     "section": "Food",
-    "amount": null,
+    "amount": 1,
     "unit": "1 lb"
   },
   {
     "id": 20,
     "name": "Potatoes",
+    "key": "potatoes",
     "section": "Food",
-    "amount": null,
+    "amount": 1,
     "unit": "1 lb"
   },
   {
     "id": 21,
     "name": "Onions",
+    "key": "onions",
     "section": "Food",
-    "amount": null,
+    "amount": 1,
     "unit": "1 lb"
   },
   {
     "id": 22,
     "name": "Lettuce",
+    "key": "lettuce",
     "section": "Food",
-    "amount": 1.99,
+    "amount": 1,
     "unit": "1 head"
   },
   {
     "id": 23,
-    "name": "Bottled Water",
+    "name": "Bottled Water (Large)",
+    "key": "bottledWaterLarge",
     "section": "Drink",
-    "amount": null,
+    "amount": 1,
     "unit": "50 oz"
   },
   {
     "id": 24,
     "name": "Bottle of Wine (Mid-Range)",
+    "key": "wine",
     "section": "Drink",
-    "amount": 12.0,
+    "amount": 1,
     "unit": "bottle"
   },
   {
     "id": 25,
-    "name": "Domestic Beer (16.9 oz Bottle)",
+    "name": "Domestic Beer (Bottle)",
+    "key": "domesticBeerBottle",
     "section": "Drink",
-    "amount": null,
+    "amount": 1,
     "unit": "16.9 oz bottle"
   }
 ]

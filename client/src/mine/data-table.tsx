@@ -37,7 +37,6 @@ import {
 import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-
 import Input from '@/components/ui/input';
 import {
   Table,
@@ -48,16 +47,25 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-// Schema for Food & Drink
+// =====================
+// SCHEMA (PROŠIREN)
+// =====================
 export const schema = z.object({
   id: z.number(),
   name: z.string(),
   section: z.enum(['Food', 'Drink', 'Food & Drink']),
-  amount: z.number().nullable(),
+  amount: z.number().nullable(), // info (read-only)
   unit: z.string(),
+
+  selected: z.boolean(), // USER PREF
+  quantity: z.number().nullable(), // USER PREF
 });
 
-// Drag handle component
+export type RowType = z.infer<typeof schema>;
+
+// =====================
+// DRAG HANDLE
+// =====================
 function DragHandle({ id }: { id: number }) {
   const { attributes, listeners } = useSortable({ id });
 
@@ -75,8 +83,12 @@ function DragHandle({ id }: { id: number }) {
   );
 }
 
-// Column definitions for Food & Drink
-const columns: ColumnDef<z.infer<typeof schema>>[] = [
+// =====================
+// COLUMNS (FUNKCIJA!)
+// =====================
+const columns = (
+  updateRow: (id: number, patch: Partial<RowType>) => void,
+): ColumnDef<RowType>[] => [
   {
     id: 'drag',
     header: () => null,
@@ -84,24 +96,14 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
   },
   {
     id: 'select',
-    header: ({ table }) => (
-      <div className="flex items-center justify-center">
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && 'indeterminate')
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all"
-        />
-      </div>
-    ),
+    header: () => <div className="flex justify-center">Select</div>,
     cell: ({ row }) => (
-      <div className="flex items-center justify-center">
+      <div className="flex justify-center">
         <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label="Select row"
+          checked={row.original.selected}
+          onCheckedChange={(value) =>
+            updateRow(row.original.id, { selected: Boolean(value) })
+          }
         />
       </div>
     ),
@@ -119,16 +121,19 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     cell: ({ row }) => row.original.section,
   },
   {
-    accessorKey: 'amount',
-    header: 'Amount',
+    accessorKey: 'quantity',
+    header: 'Qty',
     cell: ({ row }) => (
       <div className="flex justify-center">
         <Input
-          type="text" // koristi text umjesto number da nema strelica
-          inputMode="numeric" // mobilni uređaji prikazuju brojčanu tipkovnicu
-          pattern="[0-9]*" // opcionalno, samo brojevi
-          defaultValue={row.original.amount ?? ''}
-          className="w-16 text-center" // uži i centriran
+          type="number"
+          value={row.original.quantity ?? ''}
+          onChange={(e) =>
+            updateRow(row.original.id, {
+              quantity: e.target.value ? Number(e.target.value) : null,
+            })
+          }
+          className="w-16 text-center"
         />
       </div>
     ),
@@ -140,8 +145,10 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
   },
 ];
 
-// Draggable row component
-function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
+// =====================
+// DRAGGABLE ROW
+// =====================
+function DraggableRow({ row }: { row: Row<RowType> }) {
   const { transform, transition, setNodeRef, isDragging } = useSortable({
     id: row.original.id,
   });
@@ -162,14 +169,22 @@ function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
   );
 }
 
-// Main DataTable component
+// =====================
+// MAIN DATATABLE
+// =====================
 export function DataTable({
-  data: initialData,
+  data,
+  setData,
+  originalData,
+  setDirty,
+  updateRow,
 }: {
-  data: z.infer<typeof schema>[];
+  data: RowType[];
+  setData: React.Dispatch<React.SetStateAction<RowType[]>>;
+  originalData: RowType[];
+  setDirty: (d: boolean) => void;
+  updateRow: (id: number, patch: Partial<RowType>) => void;
 }) {
-  const [data, setData] = React.useState(() => initialData);
-  const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -178,8 +193,9 @@ export function DataTable({
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [pagination, setPagination] = React.useState({
     pageIndex: 0,
-    pageSize: 10,
+    pageSize: 100,
   });
+
   const sensors = useSensors(
     useSensor(MouseSensor),
     useSensor(TouchSensor),
@@ -187,23 +203,15 @@ export function DataTable({
   );
 
   const dataIds = React.useMemo<UniqueIdentifier[]>(
-    () => data?.map(({ id }) => id) || [],
+    () => data.map((d) => d.id),
     [data],
   );
 
   const table = useReactTable({
     data,
-    columns,
-    state: {
-      sorting,
-      columnVisibility,
-      rowSelection,
-      columnFilters,
-      pagination,
-    },
+    columns: columns(updateRow),
+    state: { sorting, columnVisibility, columnFilters, pagination },
     getRowId: (row) => row.id.toString(),
-    enableRowSelection: true,
-    onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
@@ -214,16 +222,22 @@ export function DataTable({
     getSortedRowModel: getSortedRowModel(),
   });
 
-  function handleDragEnd(event: DragEndEvent) {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-    if (active && over && active.id !== over.id) {
-      setData((data) => {
-        const oldIndex = dataIds.indexOf(active.id);
-        const newIndex = dataIds.indexOf(over.id);
-        return arrayMove(data, oldIndex, newIndex);
-      });
-    }
-  }
+    if (!over || active.id === over.id) return;
+
+    setData((prev) => {
+      const oldIndex = prev.findIndex((r) => r.id === active.id);
+      const newIndex = prev.findIndex((r) => r.id === over.id);
+
+      const next = arrayMove(prev, oldIndex, newIndex);
+
+      // update dirty
+      setDirty(JSON.stringify(next) !== JSON.stringify(originalData));
+
+      return next;
+    });
+  };
 
   return (
     <div className="overflow-hidden rounded-lg border">
@@ -238,7 +252,7 @@ export function DataTable({
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id} colSpan={header.colSpan}>
+                  <TableHead key={header.id}>
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -250,6 +264,7 @@ export function DataTable({
               </TableRow>
             ))}
           </TableHeader>
+
           <TableBody>
             {table.getRowModel().rows.length ? (
               <SortableContext
@@ -263,7 +278,7 @@ export function DataTable({
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={columns.length}
+                  colSpan={columns(updateRow).length}
                   className="h-24 text-center"
                 >
                   No results.
