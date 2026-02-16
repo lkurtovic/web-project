@@ -20,7 +20,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { PlaneTakeoff, Calendar } from 'lucide-react';
-
+import { API_ENDPOINTS } from '@/lib/api';
 // 1. Definiramo strukturu aerodroma za TypeScript
 interface Airport {
   iata: string;
@@ -68,9 +68,7 @@ export default function Flights() {
         setAllAirports(list);
 
         // B. Dohvati korisničke postavke s backend-a
-        const res = await fetch(
-          `${process.env.REACT_APP_API_URL}/users/${user.uid}`,
-        );
+        const res = await fetch(API_ENDPOINTS.USER_BY_ID(user.uid));
         const data = await res.json();
 
         // Postavi Range
@@ -129,18 +127,15 @@ export default function Flights() {
       const user = auth.currentUser;
       if (!user) throw new Error('User not logged in');
 
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/users/${user.uid}/preferences`,
-        {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            search_start: range[0],
-            search_duration: range[1] - range[0],
-            home_iata: selectedIata,
-          }),
-        },
-      );
+      const response = await fetch(API_ENDPOINTS.USER_PREFERENCES(user.uid), {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          search_start: range[0],
+          search_duration: range[1] - range[0],
+          home_iata: selectedIata,
+        }),
+      });
 
       if (!response.ok) throw new Error('Failed to update preferences');
 

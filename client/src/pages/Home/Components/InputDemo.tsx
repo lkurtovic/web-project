@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Input from '@/components/ui/input';
 import { auth } from '@/firebase';
 
+import { API_ENDPOINTS } from '@/lib/api';
+
 interface InputDemoProps {
   setWeatherData: React.Dispatch<React.SetStateAction<any[]>>;
   setCostData: React.Dispatch<React.SetStateAction<any | null>>;
@@ -38,9 +40,7 @@ export function InputDemo({
         const uid = auth.currentUser?.uid || '';
 
         // 1️⃣ KORAK: Vrijeme i država (zbog geocodinga na serveru)
-        const weatherRes = await fetch(
-          `${process.env.REACT_APP_API_URL}/weather?city=${encodeURIComponent(city)}`,
-        );
+        const weatherRes = await fetch(API_ENDPOINTS.WEATHER(city));
 
         if (!weatherRes.ok) throw new Error('City not found');
         const weatherJson = await weatherRes.json();
@@ -65,15 +65,9 @@ export function InputDemo({
 
         // 2️⃣ KORAK: Paralelno dohvaćanje ostalih podataka (brže je)
         const [costsRes, flightsRes, hotelsRes] = await Promise.all([
-          fetch(
-            `${process.env.REACT_APP_API_URL}/costs?city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}`,
-          ),
-          fetch(
-            `${process.env.REACT_APP_API_URL}/flights?city=${encodeURIComponent(city)}&uid=${uid}`,
-          ),
-          fetch(
-            `${process.env.REACT_APP_API_URL}/hotels/stats?city=${encodeURIComponent(city)}`,
-          ),
+          fetch(API_ENDPOINTS.COSTS(city, country)),
+          fetch(API_ENDPOINTS.FLIGHTS(city, uid)),
+          fetch(API_ENDPOINTS.HOTEL_STATS(city)),
         ]);
 
         // --- Obrada troškova ---

@@ -22,6 +22,8 @@ import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
+import { API_ENDPOINTS } from '@/lib/api';
+
 export function Login() {
   const [rememberMe, setRememberMe] = useState(false);
   const [email, setEmail] = useState('');
@@ -46,7 +48,9 @@ export function Login() {
   };
 
   const loadUserSettings = async (uid: string) => {
-    const res = await fetch(`${process.env.REACT_APP_API_URL}/users/${uid}`);
+    // Koristimo USER_BY_ID funkciju iz api.ts
+    const res = await fetch(API_ENDPOINTS.USER_BY_ID(uid));
+
     if (!res.ok) throw new Error('Failed to load user settings');
     return res.json();
   };

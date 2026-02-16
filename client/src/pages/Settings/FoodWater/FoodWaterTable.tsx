@@ -6,6 +6,8 @@ import { DataTable, type RowType } from '@/mine/data-table';
 import { auth } from '@/firebase'; // 👈 Provjeri je li putanja do tvog firebase file-a točna
 import rawData from './data.json';
 
+import { API_ENDPOINTS } from '@/lib/api';
+
 type ContextType = {
   setSaveCallback: (cb: () => void) => void;
   setDirty: (d: boolean) => void;
@@ -37,9 +39,7 @@ export default function FoodWaterTable() {
   useEffect(() => {
     const loadData = async (uid: string) => {
       try {
-        const res = await fetch(
-          `${process.env.REACT_APP_API_URL}/users/${uid}/food-preferences`,
-        );
+        const res = await fetch(API_ENDPOINTS.USER_FOOD_PREFERENCES(uid));
         const savedItems = await res.json();
 
         if (savedItems && Array.isArray(savedItems) && savedItems.length > 0) {
@@ -85,14 +85,11 @@ export default function FoodWaterTable() {
       }));
 
     try {
-      const res = await fetch(
-        `${process.env.REACT_APP_API_URL}/users/${user.uid}/food-preferences`,
-        {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(selectedItems),
-        },
-      );
+      const res = await fetch(API_ENDPOINTS.USER_FOOD_PREFERENCES(user.uid), {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(selectedItems),
+      });
 
       if (res.ok) {
         console.log('✅ Uspješno spremljeno u bazu za:', user.uid);

@@ -30,7 +30,7 @@ import {
 } from '@/components/ui/select';
 // Uvoz ikona za lozinku
 import { Eye, EyeOff } from 'lucide-react';
-
+import { API_ENDPOINTS } from '@/lib/api';
 export function Signup() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -83,7 +83,7 @@ export function Signup() {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      await fetch('${process.env.REACT_APP_API_URL}/users', {
+      await fetch(API_ENDPOINTS.USERS, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -118,7 +118,7 @@ export function Signup() {
       await updateProfile(user, { displayName: username });
       await sendEmailVerification(user);
 
-      await fetch('${process.env.REACT_APP_API_URL}/users', {
+      await fetch(API_ENDPOINTS.USERS, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

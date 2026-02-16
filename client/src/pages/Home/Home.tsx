@@ -12,6 +12,8 @@ import { useNavigate } from 'react-router-dom';
 import { auth } from '@/firebase';
 import Demo from '@/mine/HeatMapDemo';
 
+import { API_ENDPOINTS } from '@/lib/api';
+
 // --- INTERFACES ---
 interface WeatherItem {
   index: number;
@@ -73,9 +75,7 @@ function Home() {
   useEffect(() => {
     const fetchUserPreferences = async (uid: string) => {
       try {
-        const res = await fetch(
-          `${process.env.REACT_APP_API_URL}/users/${uid}/food-preferences`,
-        );
+        const res = await fetch(API_ENDPOINTS.USER_FOOD_PREFERENCES(uid));
         if (res.ok) {
           const data = await res.json();
           setUserPreferences(data);
