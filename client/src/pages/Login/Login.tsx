@@ -124,7 +124,7 @@ export function Login() {
     <div>
       <div className="flex justify-start gap-3 mb-20">
         <Link to="/">
-          <p className="font-extrabold">T-buddy</p>
+          <p className="font-extrabold text-xl">Putify</p>
         </Link>
       </div>
 

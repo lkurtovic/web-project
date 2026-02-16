@@ -78,7 +78,7 @@ export default function General() {
             {error && <p className="text-sm text-red-500">{error}</p>}
           </div>
 
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
             <LogoutButton />
             <DeleteAccountButton />
           </div>

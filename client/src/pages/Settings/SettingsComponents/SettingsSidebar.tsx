@@ -32,11 +32,11 @@ const data = {
           title: 'Profile',
           url: '/settings/general',
         },
-        {
+        /*{
           title: 'Subscription',
           url: '/settings/subscription',
         },
-        /*{
+        {
           title: 'Personalization',
           url: '/settings/personalization',
         },*/
@@ -55,13 +55,13 @@ const data = {
           url: '/settings/food-water',
         },
         {
-          title: 'Interests',
-          url: '/settings/interests',
-        },
-        {
           title: 'Flights',
           url: '/settings/flights',
         },
+        /*{
+          title: 'Interests',
+          url: '/settings/interests',
+        },*/
       ],
     },
   ],

@@ -143,7 +143,7 @@ export function Signup() {
     <div>
       <div className="flex justify-start gap-3 mb-10">
         <Link to="/">
-          <p className="font-extrabold text-xl">T-buddy</p>
+          <p className="font-extrabold text-xl">Putify</p>
         </Link>
       </div>
 

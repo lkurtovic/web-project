@@ -1,3 +1,5 @@
+'use client';
+
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
@@ -48,12 +50,12 @@ export function Landing() {
   }, []);
 
   return (
-    <div>
+    <div className="overflow-x-hidden">
       {/* Navbar */}
       <div className="flex justify-between gap-3 p-4">
         <div>
           <Link to="#">
-            <p className="font-extrabold">T-buddy</p>
+            <p className="font-extrabold text-xl">Putify</p>
           </Link>
         </div>
         <div className="flex justify-end gap-3">
@@ -79,16 +81,17 @@ export function Landing() {
           </div>
         </div>
 
-        <h1 className="text-8xl font-black mb-6 tracking-tighter uppercase">
-          Welcome to T-buddy
+        {/* RESPONZIVNI TEXT-8XL */}
+        <h1 className="text-6xl md:text-8xl font-black mb-6 tracking-tighter uppercase break-words leading-none">
+          Welcome to Putify
         </h1>
 
-        <p className="text-xl text-gray-500 mb-10 max-w-xl mx-auto leading-relaxed">
+        <p className="text-lg md:text-xl text-gray-500 mb-10 max-w-xl mx-auto leading-relaxed">
           Your personal tool for smart travelling. Compare prices, check weather
           analytics, and optimize your flights in one dashboard.
         </p>
 
-        <div className="flex justify-center gap-4 mb-20">
+        <div className="flex flex-col sm:flex-row justify-center gap-4 mb-20 px-6 sm:px-0">
           <Button
             size="lg"
             className="rounded-xl px-10 font-bold uppercase tracking-widest"
@@ -110,18 +113,19 @@ export function Landing() {
           </Button>
         </div>
 
+        {/* Quick Links Nav - Smanjen font za mobitele */}
         <div className="flex flex-col items-center gap-2">
           <p className="text-[10px] uppercase tracking-[0.3em] text-gray-600 italic">
             Look into
           </p>
-          <div className="flex gap-6 opacity-30 grayscale contrast-200">
+          <div className="flex flex-wrap justify-center gap-4 md:gap-6 opacity-30 grayscale contrast-200">
             <span
               onClick={() =>
                 document
                   .getElementById('weather')
                   ?.scrollIntoView({ behavior: 'smooth' })
               }
-              className="font-black text-sm cursor-pointer hover:text-white transition-colors"
+              className="font-black text-[10px] md:text-sm cursor-pointer hover:text-white transition-colors"
             >
               WEATHER
             </span>
@@ -131,7 +135,7 @@ export function Landing() {
                   .getElementById('food')
                   ?.scrollIntoView({ behavior: 'smooth' })
               }
-              className="font-black text-sm cursor-pointer hover:text-white transition-colors"
+              className="font-black text-[10px] md:text-sm cursor-pointer hover:text-white transition-colors"
             >
               FOOD&DRINKS
             </span>
@@ -141,7 +145,7 @@ export function Landing() {
                   .getElementById('flights')
                   ?.scrollIntoView({ behavior: 'smooth' })
               }
-              className="font-black text-sm cursor-pointer hover:text-white transition-colors"
+              className="font-black text-[10px] md:text-sm cursor-pointer hover:text-white transition-colors"
             >
               FLIGHTS
             </span>
@@ -151,7 +155,7 @@ export function Landing() {
                   .getElementById('hotels')
                   ?.scrollIntoView({ behavior: 'smooth' })
               }
-              className="font-black text-sm cursor-pointer hover:text-white transition-colors"
+              className="font-black text-[10px] md:text-sm cursor-pointer hover:text-white transition-colors"
             >
               HOTELS
             </span>
@@ -159,8 +163,12 @@ export function Landing() {
         </div>
       </div>
 
-      <div className="text-center my-20">
-        <h1 className="text-6xl font-black tracking-tighter" id="main">
+      <div className="text-center my-20 px-4">
+        {/* RESPONZIVNI TEXT-6XL */}
+        <h1
+          className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tighter"
+          id="main"
+        >
           ALL TRAVEL INFORMATION YOU NEED
         </h1>
       </div>
@@ -170,7 +178,8 @@ export function Landing() {
         id="weather"
         className="w-full py-4 overflow-hidden whitespace-nowrap border-y border/10 select-none"
       >
-        <div className="flex animate-marquee-reverse gap-10 text-2xl  uppercase italic items-center">
+        {/* RESPONZIVNI MARQUEE TEXT */}
+        <div className="flex animate-marquee-reverse gap-10 text-lg md:text-2xl uppercase italic items-center">
           {[...Array(4)].map((_, i) => (
             <span key={i} className="flex gap-10 items-center">
               WEATHER <CloudRain size={24} /> TEMPERATURE{' '}
@@ -181,22 +190,22 @@ export function Landing() {
         </div>
       </div>
 
-      <div className="flex flex-col items-center text-center mt-10 mb-40">
-        <div className="max-w-4xl px-4 flex flex-col items-center w-full">
-          <h2 className="text-4xl font-bold my-8 uppercase tracking-tight">
+      <div className="flex flex-col items-center text-center mt-10 mb-40 px-4">
+        <div className="max-w-4xl flex flex-col items-center w-full">
+          {/* RESPONZIVNI TEXT-4XL */}
+          <h2 className="text-2xl sm:text-4xl font-bold my-8 uppercase tracking-tight">
             Visiting your city when it's{' '}
             <span className="text-red-500">40°C</span>?
           </h2>
-          <h5 className="text-2xl mb-4 font-bold uppercase italic">
+          <h5 className="text-xl md:text-2xl mb-4 font-bold uppercase italic">
             Maybe not the best idea!
           </h5>
 
-          {/* ZAMJENA ZA SLIKU VREMENA */}
           <div className="w-full">
             <ChartAreaInteractive data={weatherData} />
           </div>
 
-          <p className="text-gray-400 mt-8 text-xl max-w-2xl">
+          <p className="text-gray-400 mt-8 text-lg md:text-xl max-w-2xl">
             Check historical weather patterns and precipitation to choose the
             perfect time for your visit.
           </p>
@@ -208,7 +217,7 @@ export function Landing() {
         id="food"
         className="w-full py-4 overflow-hidden whitespace-nowrap border-y border/10 select-none"
       >
-        <div className="flex animate-marquee gap-10 text-2xl  uppercase italic items-center">
+        <div className="flex animate-marquee gap-10 text-lg md:text-2xl uppercase italic items-center">
           {[...Array(4)].map((_, i) => (
             <span key={i} className="flex gap-10 items-center">
               FOOD <Pizza size={24} /> DRINKS <Beer size={24} /> DINING{' '}
@@ -219,21 +228,20 @@ export function Landing() {
         </div>
       </div>
 
-      <div className="flex flex-col items-center text-center mt-10 mb-40">
-        <div className="max-w-4xl px-4 flex flex-col items-center w-full">
-          <h2 className="text-4xl font-bold my-8 uppercase tracking-tight">
+      <div className="flex flex-col items-center text-center mt-10 mb-40 px-4">
+        <div className="max-w-4xl flex flex-col items-center w-full">
+          <h2 className="text-2xl sm:text-4xl font-bold my-8 uppercase tracking-tight leading-tight">
             Don't forget about your food and drinks spending
           </h2>
 
-          {/* ZAMJENA ZA SLIKU HRANE */}
-          <div className="w-full p-6 rounded-xl border border/10 shadow-xl text-left">
+          <div className="w-full p-2 md:p-6 rounded-xl border border/10 shadow-xl text-left overflow-x-auto">
             <TableDemo
               costData={foodData.costs}
               userPreferences={foodData.preferences}
             />
           </div>
 
-          <p className="text-gray-400 mt-8 text-xl max-w-2xl">
+          <p className="text-gray-400 mt-8 text-lg md:text-xl max-w-2xl">
             Detailed breakdown of local prices so you can manage your daily
             budget effortlessly.
           </p>
@@ -245,7 +253,7 @@ export function Landing() {
         id="flights"
         className="w-full py-4 overflow-hidden whitespace-nowrap border-y border/10 select-none"
       >
-        <div className="flex animate-marquee-reverse gap-10 text-2xl  uppercase italic items-center">
+        <div className="flex animate-marquee-reverse gap-10 text-lg md:text-2xl uppercase italic items-center">
           {[...Array(4)].map((_, i) => (
             <span key={i} className="flex gap-10 items-center">
               FLIGHTS <Plane size={24} /> AIRPORT <PlaneTakeoff size={24} />{' '}
@@ -256,27 +264,27 @@ export function Landing() {
         </div>
       </div>
 
-      <div className="flex flex-col items-center text-center mt-10 mb-20">
-        <div className="max-w-4xl px-4 flex flex-col items-center w-full">
-          <h2 className="text-4xl font-bold my-8 uppercase tracking-tight">
+      <div className="flex flex-col items-center text-center mt-10 mb-20 px-4">
+        <div className="max-w-4xl flex flex-col items-center w-full">
+          <h2 className="text-2xl sm:text-4xl font-bold my-8 uppercase tracking-tight">
             Buy flights at the right time
           </h2>
 
-          {/* ZAMJENA ZA SLIKU LETOVA */}
-
           <Demo flightData={flightData} />
-          <p className="text-gray-400 mt-8 text-xl max-w-2xl">
+
+          <p className="text-gray-400 mt-8 text-lg md:text-xl max-w-2xl">
             Track flight price volatility and find the cheapest dates using our
             advanced heatmap data.
           </p>
         </div>
       </div>
+
       {/* --- SEKCIJA 3: HOTELS --- */}
       <div
         id="hotels"
         className="w-full py-4 overflow-hidden whitespace-nowrap border-y border/10 select-none"
       >
-        <div className="flex animate-marquee gap-10 text-2xl  uppercase italic items-center">
+        <div className="flex animate-marquee gap-10 text-lg md:text-2xl uppercase italic items-center">
           {[...Array(4)].map((_, i) => (
             <span key={i} className="flex gap-10 items-center">
               HOTELS <Hotel size={24} /> ACCOMMODATION <Bed size={24} /> PRICES{' '}
@@ -286,57 +294,56 @@ export function Landing() {
           ))}
         </div>
       </div>
-      <div className="flex flex-col items-center text-center mt-10 mb-40">
-        <div className=" px-4 flex flex-col items-center w-full max-w-6xl">
-          <h2 className="text-4xl font-bold my-8 uppercase tracking-tight">
+
+      <div className="flex flex-col items-center text-center mt-10 mb-40 px-4">
+        <div className="px-4 flex flex-col items-center w-full max-w-6xl">
+          <h2 className="text-2xl sm:text-4xl font-bold my-8 uppercase tracking-tight">
             Interested in average prices?
           </h2>
 
-          {/* OVDJE JOŠ NEMAŠ KOMPONENTU PA SAM OSTAVIO PLACEHOLDER ILI MOŽEŠ VRATITI STARU SLIKU */}
-          {/* Kontejner koji je uvijek centriran, ima max širinu i automatski padding na mobitelu */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 my-10 w-full max-w-6xl mx-auto px-4">
             {/* Najjeftiniji */}
             <div className="bg-card p-6 rounded-xl border border-border/40 shadow-sm flex flex-col items-center justify-center transition-all hover:border-green-500/50">
-              <p className="text-muted-foreground text-[10px] uppercase font-bold tracking-widest mb-1">
+              <p className="text-muted-foreground text-[10px] uppercase font-bold tracking-widest mb-1 text-center">
                 Cheapest Stay
               </p>
-              <p className="text-3xl font-bold text-green-500 tracking-tighter">
+              <p className="text-2xl md:text-3xl font-bold text-green-500 tracking-tighter">
                 $45.00
               </p>
             </div>
 
             {/* Prosjek */}
             <div className="bg-card p-6 rounded-xl border border-border/40 shadow-sm flex flex-col items-center justify-center transition-all hover:border-primary/50">
-              <p className="text-muted-foreground text-[10px] uppercase font-bold tracking-widest mb-1">
+              <p className="text-muted-foreground text-[10px] uppercase font-bold tracking-widest mb-1 text-center">
                 Average Hotel
               </p>
-              <p className="text-3xl font-bold text-foreground tracking-tighter">
+              <p className="text-2xl md:text-3xl font-bold text-foreground tracking-tighter">
                 $142.50
               </p>
             </div>
 
             {/* Luksuz */}
             <div className="bg-card p-6 rounded-xl border border-border/40 shadow-sm flex flex-col items-center justify-center transition-all hover:border-red-500/50">
-              <p className="text-muted-foreground text-[10px] uppercase font-bold tracking-widest mb-1">
+              <p className="text-muted-foreground text-[10px] uppercase font-bold tracking-widest mb-1 text-center">
                 Luxury Option
               </p>
-              <p className="text-3xl font-bold text-red-500 tracking-tighter">
+              <p className="text-2xl md:text-3xl font-bold text-red-500 tracking-tighter">
                 $890.00
               </p>
             </div>
 
             {/* Broj hotela */}
             <div className="bg-card p-6 rounded-xl border border-border/40 shadow-sm flex flex-col items-center justify-center transition-all hover:border-blue-500/50">
-              <p className="text-muted-foreground text-[10px] uppercase font-bold tracking-widest mb-1">
+              <p className="text-muted-foreground text-[10px] uppercase font-bold tracking-widest mb-1 text-center">
                 Hotels Found
               </p>
-              <p className="text-3xl font-bold text-blue-500 tracking-tighter">
+              <p className="text-2xl md:text-3xl font-bold text-blue-500 tracking-tighter">
                 128
               </p>
             </div>
           </div>
 
-          <p className="text-gray-400 mt-8 text-xl max-w-2xl">
+          <p className="text-gray-400 mt-8 text-lg md:text-xl max-w-2xl">
             Compare hotel costs with our min, max, and average price analytics
             for any destination.
           </p>
@@ -344,7 +351,7 @@ export function Landing() {
       </div>
 
       {/* Footer */}
-      <footer className="pt-5 flex flex-col items-center gap-8 border-t border-white/5">
+      <footer className="pt-5 flex flex-col items-center gap-8 border-t border-white/5 pb-10">
         <div className="flex gap-10">
           <a
             href="#"
@@ -371,8 +378,8 @@ export function Landing() {
             <Music2 size={24} strokeWidth={1.5} />
           </a>
         </div>
-        <p className="text-[10px] uppercase tracking-[1em] text-gray-600 mb-3">
-          © T-Buddy 2026
+        <p className="text-[10px] uppercase tracking-[1em] text-gray-600 mb-3 text-center">
+          © Putify 2026
         </p>
       </footer>
     </div>
