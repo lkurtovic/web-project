@@ -83,7 +83,7 @@ export function Signup() {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      await fetch('http://localhost:3001/api/users', {
+      await fetch('${process.env.REACT_APP_API_URL}/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -118,7 +118,7 @@ export function Signup() {
       await updateProfile(user, { displayName: username });
       await sendEmailVerification(user);
 
-      await fetch('http://localhost:3001/api/users', {
+      await fetch('${process.env.REACT_APP_API_URL}/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

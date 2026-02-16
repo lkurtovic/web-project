@@ -39,7 +39,7 @@ export function InputDemo({
 
         // 1️⃣ KORAK: Vrijeme i država (zbog geocodinga na serveru)
         const weatherRes = await fetch(
-          `http://localhost:3001/api/weather?city=${encodeURIComponent(city)}`,
+          `${process.env.REACT_APP_API_URL}/weather?city=${encodeURIComponent(city)}`,
         );
 
         if (!weatherRes.ok) throw new Error('City not found');
@@ -66,13 +66,13 @@ export function InputDemo({
         // 2️⃣ KORAK: Paralelno dohvaćanje ostalih podataka (brže je)
         const [costsRes, flightsRes, hotelsRes] = await Promise.all([
           fetch(
-            `http://localhost:3001/api/costs?city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}`,
+            `${process.env.REACT_APP_API_URL}/costs?city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}`,
           ),
           fetch(
-            `http://localhost:3001/api/flights?city=${encodeURIComponent(city)}&uid=${uid}`,
+            `${process.env.REACT_APP_API_URL}/flights?city=${encodeURIComponent(city)}&uid=${uid}`,
           ),
           fetch(
-            `http://localhost:3001/api/hotels/stats?city=${encodeURIComponent(city)}`,
+            `${process.env.REACT_APP_API_URL}/hotels/stats?city=${encodeURIComponent(city)}`,
           ),
         ]);
 

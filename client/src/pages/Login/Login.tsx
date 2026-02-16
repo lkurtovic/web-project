@@ -46,7 +46,7 @@ export function Login() {
   };
 
   const loadUserSettings = async (uid: string) => {
-    const res = await fetch(`http://localhost:3001/api/users/${uid}`);
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/users/${uid}`);
     if (!res.ok) throw new Error('Failed to load user settings');
     return res.json();
   };

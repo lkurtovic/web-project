@@ -38,7 +38,7 @@ export default function FoodWaterTable() {
     const loadData = async (uid: string) => {
       try {
         const res = await fetch(
-          `http://localhost:3001/api/users/${uid}/food-preferences`,
+          `${process.env.REACT_APP_API_URL}/users/${uid}/food-preferences`,
         );
         const savedItems = await res.json();
 
@@ -86,7 +86,7 @@ export default function FoodWaterTable() {
 
     try {
       const res = await fetch(
-        `http://localhost:3001/api/users/${user.uid}/food-preferences`,
+        `${process.env.REACT_APP_API_URL}/users/${user.uid}/food-preferences`,
         {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },

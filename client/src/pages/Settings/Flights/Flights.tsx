@@ -68,7 +68,9 @@ export default function Flights() {
         setAllAirports(list);
 
         // B. Dohvati korisničke postavke s backend-a
-        const res = await fetch(`http://localhost:3001/api/users/${user.uid}`);
+        const res = await fetch(
+          `${process.env.REACT_APP_API_URL}/users/${user.uid}`,
+        );
         const data = await res.json();
 
         // Postavi Range
@@ -128,7 +130,7 @@ export default function Flights() {
       if (!user) throw new Error('User not logged in');
 
       const response = await fetch(
-        `http://localhost:3001/api/users/${user.uid}/preferences`,
+        `${process.env.REACT_APP_API_URL}/users/${user.uid}/preferences`,
         {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },

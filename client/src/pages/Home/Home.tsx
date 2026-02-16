@@ -74,7 +74,7 @@ function Home() {
     const fetchUserPreferences = async (uid: string) => {
       try {
         const res = await fetch(
-          `http://localhost:3001/api/users/${uid}/food-preferences`,
+          `${process.env.REACT_APP_API_URL}/users/${uid}/food-preferences`,
         );
         if (res.ok) {
           const data = await res.json();
