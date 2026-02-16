@@ -1,10 +1,8 @@
 'use client';
 
-import * as React from 'react';
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHeader,
   TableHead,

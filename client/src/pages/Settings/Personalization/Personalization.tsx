@@ -1,21 +1,5 @@
 // pages/settings/SettingsHome.tsx
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { AvatarDemo22 } from '@/mine/AvatarDemo2';
-import { LogoutButton } from '@/pages/Settings/SettingsComponents/LogOutButton';
-import { DeleteAccountButton } from '../SettingsComponents/DeleteAccount';
-
-const user = {
-  name: 'johndoe',
-  email: 'john@example.com',
-};
+import { Card, CardContent } from '@/components/ui/card';
 
 export default function General() {
   return (

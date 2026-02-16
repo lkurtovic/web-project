@@ -57,8 +57,6 @@ export function ChartAreaInteractive({ data }: ChartAreaInteractiveProps) {
     precipitation: { label: 'Precipitation (mm)', color: '#4D79FF' }, // plava
   } satisfies ChartConfig;
 
-  let monthCounter = 0; // ovo će pratiti koji mjesec slijedi
-
   return (
     <Card className="pt-0">
       <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
@@ -90,7 +88,7 @@ export function ChartAreaInteractive({ data }: ChartAreaInteractiveProps) {
               axisLine={false}
               tickMargin={8}
               ticks={tickIndexes}
-              tickFormatter={(value, index) => months[index % 12]}
+              tickFormatter={(_, index) => months[index % 12]}
             />
             {/* Glavna Y os za temperaturu */}
             <YAxis

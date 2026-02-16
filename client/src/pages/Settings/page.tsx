@@ -3,7 +3,7 @@ import { AppSidebar } from '@/pages/Settings/SettingsComponents/SettingsSidebar'
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { SaveContext } from './SaveContext';
-import type { SaveContextType } from './SaveContext';
+
 import {
   SidebarInset,
   SidebarProvider,

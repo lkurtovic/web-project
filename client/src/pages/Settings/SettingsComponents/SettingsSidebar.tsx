@@ -1,15 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import {
-  BookOpen,
-  Bot,
-  Frame,
-  Map,
-  PieChart,
-  UserPen,
-  SlidersHorizontal,
-} from 'lucide-react';
+import { SlidersHorizontal } from 'lucide-react';
 
 import { NavMain } from '@/pages/Settings/SettingsComponents/nav-main';
 import { NavUser } from '@/pages/Settings/SettingsComponents/SettingsUser';

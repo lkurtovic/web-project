@@ -1,11 +1,4 @@
-import {
-  Brush,
-  Utensils,
-  Landmark,
-  History,
-  Drama,
-  ShoppingBag,
-} from 'lucide-react';
+import { Brush, Utensils, Landmark, History, Drama } from 'lucide-react';
 
 export const INTERESTS = [
   { key: 'art', icon: Brush, label: 'Art' },

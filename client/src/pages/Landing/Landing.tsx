@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Instagram, Facebook, Twitter, Music2 } from 'lucide-react';
 import {
