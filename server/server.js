@@ -11,6 +11,8 @@ app.use(cors());
 app.use(express.json());
 
 // --- ✈️ POMOĆNE FUNKCIJE ---
+
+// učitavanje IATA kodova zračnih luka
 let airportDatabase = [];
 async function loadAirports() {
   try {

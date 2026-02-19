@@ -71,7 +71,7 @@ function Home() {
 
   const [costData, setCostData] = useState<CostData | null>(() => {
     const saved = localStorage.getItem('costData');
-
+    console.log(saved);
     return saved ? JSON.parse(saved) : null;
   });
 
@@ -90,7 +90,6 @@ function Home() {
   });
 
   const [userPreferences, setUserPreferences] = useState<UserPreference[]>([]);
-
   const [isDataLoading, setIsDataLoading] = useState(true);
 
   // --- DOHVAĆANJE PREFERENCIJA (MongoDB) ---
@@ -124,6 +123,11 @@ function Home() {
 
     return () => unsubscribe();
   }, []);
+
+  useEffect(() => {
+    console.log('costData:', costData);
+    console.log('userPreferences:', userPreferences);
+  }, [costData, userPreferences]);
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">

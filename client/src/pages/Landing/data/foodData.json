@@ -1,15 +1,18 @@
 {
   "costs": {
-    "meal_inexpensive": "12.50 €",
-    "beer_domestic": "3.80 €",
-    "water_033": "2.10 €",
-    "coffee_cappuccino": "2.50 €",
-    "taxi_1km": "1.20 €",
-    "mcdonalds_meal": "8.00 €"
+    "mealInexpensive": "15.00 €",
+    "mcDonaldsMeal": "12.00 €",
+    "softDrink": "3.06 €",
+    "bottledWater": "2.51 €",
+    "apples": "1.34 €",
+    "bananas": "0.80 €",
+    "freshWhiteBread": "1.70 €",
+    "eggs": "3.39 €"
   },
   "preferences": [
-    { "id": 1, "quantity": 2 },
-    { "id": 2, "quantity": 4 },
-    { "id": 5, "quantity": 1 }
+    { "id": 1, "quantity": 1 },
+    { "id": 3, "quantity": 1 },
+    { "id": 7, "quantity": 1 },
+    { "id": 8, "quantity": 1 }
   ]
 }
