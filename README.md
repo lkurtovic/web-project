@@ -1,73 +1,54 @@
-# React + TypeScript + Vite
+# 🌍 Putify | Travel Planner App
+**Projekt iz kolegija: Web programiranje**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Putify je moderna full-stack web aplikacija koja pomaže korisnicima u planiranju putovanja pružajući detaljne analitičke podatke o odabranom odredištu. Aplikacija omogućuje pametno planiranje budžeta i vremena putovanja kroz vizualizaciju podataka u stvarnom vremenu.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Ključne Funkcionalnosti
 
-## React Compiler
+* **Vremenska Analitika:** Prikaz temperatura i padalina kroz cijelu prethodnu godinu pomoću interaktivnih grafikona.
+* **Personalizirani Troškovnik:** Kalkulator troškova hrane i pića gdje korisnik sam bira stavke (npr. obroci, kava, voda) koje ulaze u dnevni budžet.
+* **Hotel Insights:** Prikaz cijena smještaja kroz tri kategorije: **Najjeftiniji**, **Prosječni** i **Luksuzni**.
+* **Flight Heatmap:** Pregled cijena letova u rasponu od 6 mjeseci za brzo pronalaženje najpovoljnijih termina.
+* **User Dashboard:** Potpuna podrška za login, signup i upravljanje postavkama profila.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Frontend (Client)
+* **React (Vite)** – Core framework za brzo i reaktivno sučelje.
+* **TypeScript** – Sigurnost koda i lakše održavanje.
+* **Tailwind CSS** – Moderni "utility-first" CSS za responzivni dizajn.
+* **Shadcn/ui** – Profesionalne UI komponente (tablice, gumbi, kartice).
+* **Recharts** – Biblioteka za prikaz meteo-podataka.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Backend (Server)
+* **Node.js** – Runtime okruženje za izvršavanje JavaScripta na poslužitelju.
+* **Express** – Framework za kreiranje API ruta i obradu podataka.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+
+---
+
+## 💻 Pokretanje Projekta Lokalno
+
+Da biste pokrenuli projekt, pobrinite se da imate instaliran **Node.js**.
+
+### 1. Pokretanje Klijenta (Frontend)
+Otvorite novi terminal i pokrenite:
+```bash
+cd client
+npm install
+npm run dev
+```
+### 2. Pokretanje Servera (Backend)
+Otvorite novi terminal i pokrenite:
+```bash
+cd server
+npm install
+npx nodemon server.js
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+### Stranica se nalazi na https://putify.co/
